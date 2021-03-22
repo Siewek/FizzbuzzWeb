@@ -1,0 +1,28 @@
+@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Strona Główna";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome to FizzBuzz</h1>
+    <form method="post">
+        <div>
+            <span class="text-danger"></span>
+            <input name="number" type="number" min="0" max="1000" placeholder="Number">
+        </div>
+        <button type="submit">Zatwierdź</button>
+    </form> <br />
+    <div>
+        <span class="d-block p-2 bg-primary text-white">
+            wynik:
+            @if (Model.session.Count() > 0)
+            {
+                 @Model.session.ElementAt(Model.session.Count() - 1).Number
+                 @Model.session.ElementAt(Model.session.Count() - 1).FizzBuzz
+            }
+        </span>
+           
+    </div>
+    <a href="./Ostatnio_Szukane" class="btn btn-info" role="button">Ostatnio Szukane</a>
+</div>
