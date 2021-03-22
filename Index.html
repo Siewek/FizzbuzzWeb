@@ -4,22 +4,35 @@
     ViewData["Title"] = "Strona Główna";
 }
 
+<style>
+    customerror {
+        font-weight: bold;
+        color: red;
+    }
+</style>
 <div class="text-center">
     <h1 class="display-4">Welcome to FizzBuzz</h1>
     <form method="post">
         <div>
             <span class="text-danger"></span>
-            <input name="number" type="number" min="0" max="1000" placeholder="Number">
+            <input name="number" min="0" max="1000" placeholder="Number">
         </div>
         <button type="submit">Zatwierdź</button>
     </form> <br />
     <div>
         <span class="d-block p-2 bg-primary text-white">
             wynik:
-            @if (Model.session.Count() > 0)
+            @if (ModelState.IsValid)
             {
-                 @Model.session.ElementAt(Model.session.Count() - 1).Number
-                 @Model.session.ElementAt(Model.session.Count() - 1).FizzBuzz
+                @if (Model.session.Count() > 0)
+                {
+                    @Model.session.ElementAt(Model.session.Count() - 1).Number
+                    @Model.session.ElementAt(Model.session.Count() - 1).FizzBuzz
+                }
+            }
+            else
+            {    
+                <customerror> zla wartosc </customerror>    
             }
         </span>
            
