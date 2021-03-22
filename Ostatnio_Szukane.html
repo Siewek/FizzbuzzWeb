@@ -1,0 +1,25 @@
+@page
+@using Microsoft.AspNetCore.Http
+@model FizzBuzzWeb.Pages.Ostatnio_SzukaneModel
+@{
+    {
+        ViewData["Title"] = "Ostatnio Wyszukiwane";
+    }
+    <h1>@ViewData["Title"]</h1>
+}
+
+
+@if (Model.session.Count() > 0)
+{
+
+    @for (var i = 0; i < Model.session.Count(); i++)
+    { <p>
+            @Html.DisplayNameFor(model => Model.session.ElementAt(i).Number):
+            @Model.session.ElementAt(i).Number
+        </p>
+    <p>
+        @Html.DisplayNameFor(model => Model.session.ElementAt(i).FizzBuzz):
+        @Model.session.ElementAt(i).FizzBuzz;
+    </p>}
+}
+
