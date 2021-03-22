@@ -1,0 +1,55 @@
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Logging;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using FizzBuzzWeb.Models;
+using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
+
+namespace FizzBuzzWeb.Pages
+{
+    public class IndexModel : PageModel
+    {
+        private readonly ILogger<IndexModel> _logger;
+
+
+
+        public List<Fizbuzz> session;
+
+        public IndexModel(ILogger<IndexModel> logger)
+        {
+            _logger = logger;
+        }
+
+        public void OnGet()
+        {
+            var SessionAddress = HttpContext.Session.GetString("SessionAddress");
+            if (SessionAddress != null)
+            {
+                session = JsonConvert.DeserializeObject<List<Fizbuzz>>(SessionAddress);
+            }
+            else
+                session = new List<Fizbuzz>();
+        }
+        public IActionResult OnPost(int number)
+        {
+
+            OnGet();
+            Fizbuzz fizzbuzz = new Fizbuzz();
+            fizzbuzz.Number = number;
+            fizzbuzz.output();
+            session.Add(fizzbuzz);
+            if (ModelState.IsValid)
+                {                                     
+                    HttpContext.Session.SetString("SessionAddress",
+                    JsonConvert.SerializeObject(session));               
+                }           
+            return Page();
+        }
+
+        
+    }
+}
